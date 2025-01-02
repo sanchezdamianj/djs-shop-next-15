@@ -1,3 +1,6 @@
+export const revalidate = 60;
+
+
 import { getPaginationProductsWithImages } from "@/actions/products/product-pagination";
 import { ProductGrid } from "@/components/products/product-grid/ProductGrid";
 import { Pagination } from "@/components/ui/pagination/Pagination";
@@ -13,7 +16,7 @@ interface Props {
   }
 }
 
-export default async function Home({ searchParams  }: Props) { 
+export default async function HomePage({ searchParams  }: Props) { 
 
   const page =  searchParams.page ? parseInt(searchParams.page) : 1;
   const take = searchParams.take ? parseInt(searchParams.take) : 12;

@@ -1,6 +1,6 @@
 
 
-function page() {
+function ProductSlugPage() {
   return (
     <div>
         <h1>Product page</h1>
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default ProductSlugPage;

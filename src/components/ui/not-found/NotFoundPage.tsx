@@ -2,7 +2,7 @@ import { titleFont } from "@/config/fonts"
 import Image from "next/image"
 import Link from "next/link"
 
-export const PageNotFound = () => {
+export default function NotFoundPage() {
   return (
     <div>
         <div className="flex flex-col-reverse justify-center items-center md:flex-row h-[800px] w-full align-middle">

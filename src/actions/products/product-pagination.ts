@@ -13,7 +13,7 @@ interface PaginationOptions {
 export const getPaginationProductsWithImages = async ({
     page = 1,
     take = 12,
-    gender = 'men'
+    gender 
 }: PaginationOptions) => {
 
     if( isNaN(Number(page)) || page < 1 ) page = 1;

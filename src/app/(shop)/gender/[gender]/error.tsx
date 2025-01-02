@@ -1,9 +1,13 @@
 'use client'
 
-import { PageNotFound } from "@/components/ui/not-found/PageNotFound"
+import NotFoundPage from "../../product/not-found"
 
-export default function errors () {
+
+
+export default function ErrorPage(
+  
+) {
   return (
-    <PageNotFound />
+    <NotFoundPage />
   )
 }

@@ -1,3 +1,8 @@
+
+
+export const revalidate = 60;
+
+
 import { getPaginationProductsWithImages } from "@/actions/products/product-pagination";
 import { ProductGrid } from "@/components/products/product-grid/ProductGrid";
 import { Pagination } from "@/components/ui/pagination/Pagination";
@@ -17,11 +22,16 @@ interface Props {
   }
 }
 
-export default async function CategoryPage({params, searchParams}: Props) {
+export default async function GenderPage({params, searchParams}: Props) {
 
-  const { gender } = await params;
+  const a = params;
+  const  gender  = a.gender;
 
-  const page = searchParams.page ? parseInt(searchParams.page) : 1;
+  // const { gender } =  params;
+
+  const searchParamsTemp =  searchParams;
+
+  const page = searchParamsTemp.page ? parseInt(searchParamsTemp.page) : 1;
 
   const data = await getPaginationProductsWithImages({
     page,

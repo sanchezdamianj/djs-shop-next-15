@@ -1,6 +1,6 @@
 
 
-function page() {
+function AdminPage() {
   return (
     <div>
         <h1>Admin Page</h1>
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default AdminPage;

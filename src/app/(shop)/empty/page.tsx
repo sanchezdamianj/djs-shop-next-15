@@ -1,6 +1,6 @@
 
 
-function page() {
+function EmptyPage() {
   return (
     <div>
         <h1>Empty page</h1>
@@ -8,4 +8,4 @@ function page() {
   )
 }
 
-export default page
+export default EmptyPage
