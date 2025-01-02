@@ -1,7 +1,4 @@
-
-
 export const revalidate = 60;
-
 
 import { getPaginationProductsWithImages } from "@/actions/products/product-pagination";
 import { ProductGrid } from "@/components/products/product-grid/ProductGrid";
@@ -14,33 +11,27 @@ import { redirect } from "next/navigation";
 // const seedProducts = initialData.products;
 
 interface Props {
-  params: {
+  params: Promise<{
     gender: string;
-  },
-  searchParams: {
+  }>,
+  searchParams: Promise<{
     page?: string;
-  }
+  }>;
 }
 
-export default async function GenderPage({params, searchParams}: Props) {
+export default async function GenderPage({ params, searchParams }: Props) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  
+  const { gender } = resolvedParams;
+  const page = resolvedSearchParams.page ? parseInt(resolvedSearchParams.page) : 1;
 
-  const a = params;
-  const  gender  = a.gender;
-
-  // const { gender } =  params;
-
-  const searchParamsTemp =  searchParams;
-
-  const page = searchParamsTemp.page ? parseInt(searchParamsTemp.page) : 1;
-
-  const data = await getPaginationProductsWithImages({
-    page,
-    gender: gender as Gender
+  const { products, totalPages } = await getPaginationProductsWithImages({ 
+    page, 
+    gender: gender as Gender,
   });
 
-  const { products, totalPages } = data ?? { products: [], totalPages: 0 };
-  
-  if (products?.length === 0) {
+  if (products.length === 0) {
     redirect(`/gender/${gender}`);
   }
   // const products = seedProducts.filter(

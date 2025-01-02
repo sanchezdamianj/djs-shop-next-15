@@ -9,9 +9,9 @@ import { titleFont } from '@/config/fonts';
 import { initialData } from '@/seed/seed';
 
 interface Props {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 

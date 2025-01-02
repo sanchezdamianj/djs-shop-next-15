@@ -10,19 +10,20 @@ import { redirect } from "next/navigation";
 // const products = initialData.products;
 
 interface Props {
-  searchParams: {
+  searchParams: Promise<{
     page?: string;
     take?: string;
-  }
+  }>
 }
 
 export default async function HomePage({ searchParams  }: Props) { 
 
-  const page =  searchParams.page ? parseInt(searchParams.page) : 1;
-  const take = searchParams.take ? parseInt(searchParams.take) : 12;
+  const resolvedSearchParams = await searchParams;
 
-  const data = await getPaginationProductsWithImages( {page, take} );
-  
+  const page = resolvedSearchParams.page ? parseInt(resolvedSearchParams.page) : 1;
+  const take = resolvedSearchParams.take ? parseInt(resolvedSearchParams.take) : 12;
+
+  const data = await getPaginationProductsWithImages({ page, take });
   
 
   if (!data?.products?.length) {
