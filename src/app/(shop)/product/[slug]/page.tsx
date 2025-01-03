@@ -1,7 +1,5 @@
 export const revalidate = 604800 // refresh in 7days
 
-import { QuantitySelector } from '@/components/product/quantity-selector/QuantitySelector';
-import { SizeSelector } from '@/components/product/size-selector/SizeSelector';
 import { ProductMobileSlideshow } from '@/components/product/sldeshow/ProductMobileSlideshow';
 import { ProductSlideshow } from '@/components/product/sldeshow/ProductSlideshow';
 import { titleFont } from '@/config/fonts';
@@ -9,6 +7,7 @@ import { notFound } from 'next/navigation';
 // import { initialData } from '@/seed/seed';
 import { getProductBySlug } from '@/actions/products/get-product-by-slug';
 import { StockLabel } from '@/components/product/stock-label/StockLabel';
+import { AddToCart } from './ui/AddToCart';
 
 
 interface Props {
@@ -62,21 +61,7 @@ export default async function ProductSlugPage( { params }: Props ) {
         </h1>
         <p className="text-lg mb-5">${ product.price }</p>
 
-        <SizeSelector
-          selectedSize={ product.sizes[ 1 ] }
-          availableSizes={ product.sizes }
-        />
-
-
-        <QuantitySelector 
-          quantity={ 2 }
-        />
-
-
-        {/* Button */ }
-        <button className="btn-primary my-5">
-          Add to cart
-        </button>
+       <AddToCart product={ product } />
 
         {/* Descriptionn */ }
         <h3 className="font-bold text-sm">Description</h3>

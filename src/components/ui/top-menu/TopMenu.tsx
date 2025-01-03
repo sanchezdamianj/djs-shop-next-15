@@ -1,13 +1,24 @@
 'use client'
 
 import { titleFont } from "@/config/fonts";
+import { useCartStore } from "@/store/cart/cart-store";
 import { useUIStore } from "@/store/ui/ui-store";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { IoCartOutline, IoSearchOutline } from "react-icons/io5";
 
 export const TopMenu = () => {
 
   const openSideMenu = useUIStore((state) => state.openSideMenu);
+
+  const totalItems = useCartStore((state) => state.getTotalItems());
+
+  //to avoid hydration issue, we call this effect after the first render, so the ui can be re-hydrated correctly in cart icon quantity.
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
 
   return (
     <nav className="flex px-5 justify-between items-center w-full">
@@ -43,9 +54,13 @@ export const TopMenu = () => {
         </Link>
         <Link 
           className="mx-2"   
-          href="/cart" >
+          href={ (totalItems > 0 && loaded) ? "/cart" : "/empty"}>
             <div className="relative">
-              <span className="absolute  -top-2 -right-2 px-1 text-xs font-bold  bg-green-600 rounded-full text-white">9</span>
+              <span className="absolute  -top-2 -right-2 px-1 text-xs font-bold  bg-green-600 rounded-full text-white">
+                {
+                 ( loaded && totalItems > 0) && totalItems
+                }
+                </span>
               <IoCartOutline  className="w-5 h-5"/>
             </div>
         </Link>
