@@ -1,12 +1,15 @@
-import { notFound } from 'next/navigation';
-
+export const revalidate = 604800 // refresh in 7days
 
 import { QuantitySelector } from '@/components/product/quantity-selector/QuantitySelector';
 import { SizeSelector } from '@/components/product/size-selector/SizeSelector';
 import { ProductMobileSlideshow } from '@/components/product/sldeshow/ProductMobileSlideshow';
 import { ProductSlideshow } from '@/components/product/sldeshow/ProductSlideshow';
 import { titleFont } from '@/config/fonts';
-import { initialData } from '@/seed/seed';
+import { notFound } from 'next/navigation';
+// import { initialData } from '@/seed/seed';
+import { getProductBySlug } from '@/actions/products/get-product-by-slug';
+import { StockLabel } from '@/components/product/stock-label/StockLabel';
+
 
 interface Props {
   params: Promise<{
@@ -14,12 +17,12 @@ interface Props {
   }>;
 }
 
-
-
 export default async function ProductSlugPage( { params }: Props ) {
 
   const { slug } = await params;
-  const product = initialData.products.find( product => product.slug === slug );
+  // const product = initialData.products.find( product => product.slug === slug );
+
+  const product = await getProductBySlug( slug );
 
   if ( !product ) {
     notFound();
@@ -53,6 +56,7 @@ export default async function ProductSlugPage( { params }: Props ) {
       {/* Details */ }
       <div className="col-span-1 px-5">
 
+        <StockLabel slug={ product.slug } />
         <h1 className={ ` ${ titleFont.className } antialiased font-bold text-xl` }>
           { product.title }
         </h1>

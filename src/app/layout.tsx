@@ -3,8 +3,11 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "djs-shop",
-  description: "Next 15 Shop",
+  title: {
+    template: "%s | djs shop",
+    default: "home - djs shop",
+  },
+  description: "djs shopping website",
 };
 
 export default function RootLayout({
