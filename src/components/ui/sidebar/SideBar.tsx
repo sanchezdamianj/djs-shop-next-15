@@ -23,7 +23,8 @@ export const SideBar = () => {
   const { data: session } = useSession();
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === "admin";
-
+  
+  
   return (
     <div className="">
       {isSideMenuOpen && (
@@ -73,20 +74,21 @@ export const SideBar = () => {
         <SideBarItem icon={IoTicketOutline} text="Orders" href="/orders" />
         {isAuthenticated ? (
           <SideBarItem
-            icon={IoLogInOutline}
-            text="Login"
-            href="/auth/login"
-            onClick={closeMenu}
-          />
-        ) : (
-          <SideBarItem
             icon={IoLogOutOutline}
             text="Logout"
             onClick={() => {
               logout();
               closeMenu();
+              
             }}
             href="/auth/login"
+          />
+        ) : (
+          <SideBarItem
+            icon={IoLogInOutline}
+            text="Login"
+            href="/auth/login"
+            onClick={closeMenu}
           />
         )}
 

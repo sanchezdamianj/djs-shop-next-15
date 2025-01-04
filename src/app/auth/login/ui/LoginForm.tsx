@@ -8,21 +8,20 @@ import { useActionState, useEffect } from "react";
 import { IoInformationOutline } from "react-icons/io5";
 
 export const LoginForm = () => {
-  const [status,formAction, isPending] = useActionState(
+  const [status, formAction, isPending] = useActionState(
     authenticate,
     undefined
   );
 
   // const router = useRouter();
-  
+
   useEffect(() => {
-    
-    if ( status === "Success" ) {
+    if (status === "Success") {
       // router.replace("/");
 
       window.location.replace("/");
     }
-  }, [ status ]);
+  }, [status]);
 
   return (
     <form action={formAction} className="space-y-3">
@@ -41,24 +40,23 @@ export const LoginForm = () => {
           name="password"
         />
 
-        {status as string && (
+        {(status as string) && (
           <div className="flex items-center space-x-2 mb-8">
             <IoInformationOutline className="h-5 w-5 text-red-500" />
             <p className="text-sm text-red-500">{status as string}</p>
           </div>
         )}
 
-        <button 
-          type="submit" 
-          className={ clsx({
-            'btn-primary': !isPending,
-            'btn-disabled': isPending
-          })} 
+        <button
+          type="submit"
+          className={clsx({
+            "btn-primary": !isPending,
+            "btn-disabled": isPending,
+          })}
           aria-disabled={isPending}
           disabled={isPending}
-          >
+        >
           Log in
-         
         </button>
         {/* divisor line */}
         <div className="flex items-center my-5">
