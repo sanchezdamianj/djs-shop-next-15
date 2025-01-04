@@ -11,10 +11,15 @@ async function main(  ) {
         return;
     }
     
+    await prisma.user.deleteMany();
     // delete data from database
-    await prisma.product.deleteMany();
     await prisma.productImage.deleteMany();
+    await prisma.product.deleteMany();
     await prisma.category.deleteMany();
+
+    // insert users into database
+    const { users } = initialData;
+    await prisma.user.createMany({ data: users });
   
     // insert categories into database
     const { categories } = initialData;
