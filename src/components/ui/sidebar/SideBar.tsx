@@ -24,6 +24,7 @@ export const SideBar = () => {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user.role === "admin";
   
+  //TODO: implement a refresh when a user has been logged out or session expired
   
   return (
     <div className="">
@@ -79,7 +80,6 @@ export const SideBar = () => {
             onClick={() => {
               logout();
               closeMenu();
-              
             }}
             href="/auth/login"
           />

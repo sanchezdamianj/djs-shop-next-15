@@ -12,14 +12,15 @@ export const authConfig: NextAuthConfig = {
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       console.log({ auth });
-      // const isLoggedIn = !!auth?.user;
-
-      // const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
-      // if (isOnDashboard) {
-      //   if (isLoggedIn) return true;
-      //   return false; // Redirect unauthenticated users to login page
-      // } else if (isLoggedIn) {
-      //   return Response.redirect(new URL('/dashboard', nextUrl));
+      const isLoggedIn = !!auth?.user;
+      console.log('loggedin', isLoggedIn );
+      const isOnDashboard = nextUrl.pathname.startsWith('/checkout');
+      if (isOnDashboard) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      } 
+      // else if (isLoggedIn && !isOnDashboard) {
+      //   return Response.redirect(new URL('/checkout/address', nextUrl));
       // }
       return true;
     },
@@ -33,6 +34,7 @@ export const authConfig: NextAuthConfig = {
     session({ session, token, user }) {
       session.user = token.data as any;
 
+      // if somehitng has changed with the user data, we need to update the session because the user data was saved in the token and in the cookie
       return session;
     },
   },
